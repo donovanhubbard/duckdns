@@ -11,6 +11,11 @@ if [ -z "$TOKEN" ]; then
   exit 1
 fi
 
+if [ -z "$DOMAIN" ]; then
+  echo "Mandatory environment variable DOMAIN not set. Exiting."
+  exit 1
+fi
+
 if [ -z "$INTERVAL_SECONDS" ]; then
   INTERVAL_SECONDS=$DEFAULT_INTERVAL_SECONDS
 fi
@@ -19,7 +24,7 @@ fi
 while true
 do
   echo -n `date`:
-  curl --silent "https://www.duckdns.org/update?domains=svenxix&token=$TOKEN&ip="
+  curl --silent "https://www.duckdns.org/update?domains=$DOMAIN&token=$TOKEN&ip="
   echo ""
   sleep $INTERVAL_SECONDS
 done
